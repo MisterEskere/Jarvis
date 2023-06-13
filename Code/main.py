@@ -35,7 +35,6 @@ while True:
 
         # Acquisizione dell'audio dal microfono
         audio = r.listen(source)
-        time.sleep(3)
 
     try:
         # Utilizzo del riconoscimento vocale di Google per convertire l'audio in testo
@@ -57,6 +56,7 @@ while True:
         subprocess.call(spotify, creationflags=subprocess.CREATE_NO_WINDOW)
         voice.say("Fatto")
         voice.runAndWait()
+        continue  
 
     if "jarvis metti in pausa" in text:
         try:
@@ -64,6 +64,7 @@ while True:
         except:
             # Ignora l'eccezione e continua l'esecuzione
             pass
+        continue  
 
     if "jarvis rimetti la musica" in text:
         try:
@@ -71,6 +72,7 @@ while True:
         except:
             # Ignora l'eccezione e continua l'esecuzione
             pass
+        continue  
 
     if "jarvis prossima canzone" in text:
         try:
@@ -78,6 +80,7 @@ while True:
         except:
             # Ignora l'eccezione e continua l'esecuzione
             pass
+        continue  
     
     if "jarvis metti canzone precedente" in text:
         try:
@@ -85,6 +88,7 @@ while True:
         except:
             # Ignora l'eccezione e continua l'esecuzione
             pass
+        continue  
 
     if "jarvis metti il volume a" in text:
         volume_position = text.find("jarvis metti il volume a ")
@@ -95,6 +99,7 @@ while True:
         except:
             # Ignora l'eccezione e continua l'esecuzione
             pass
+        continue  
 
 
     if "jarvis metti" in text:
@@ -108,3 +113,4 @@ while True:
         except:
             # Ignora l'eccezione e continua l'esecuzione
             pass
+        continue  
