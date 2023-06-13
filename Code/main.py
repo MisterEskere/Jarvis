@@ -91,7 +91,7 @@ while True:
         volume = text[volume_position + len("jarvis metti il volume a "):]
 
         try:
-            sp.volume(volume)
+            sp.volume(int(volume))
         except:
             # Ignora l'eccezione e continua l'esecuzione
             pass
@@ -100,7 +100,14 @@ while True:
     if "jarvis metti" in text:
         song_position = text.find("jarvis metti ")
         song = text[song_position + len("jarvis metti "):]
-            
+
+        try:
+            results = sp.search(q=song, type='track', limit=1)
+            track_id = results['tracks']['items'][0]['id']
+            sp.start_playback(uris=['spotify:track:' + track_id])
+        except:
+            # Ignora l'eccezione e continua l'esecuzione
+            pass
 
 
     # if "jarvis DIOCANEEEE" in text:
