@@ -108,15 +108,3 @@ while True:
         except:
             # Ignora l'eccezione e continua l'esecuzione
             pass
-
-
-    # if "jarvis DIOCANEEEE" in text:
-  #       song_position = text.find("jarvis metti ")  # Trova la canzone di "jarvis metti"
-
-  #       song = text[song_position + len("jarvis metti"):]
- #
-    #     print(song)
-
-    # #     results = sp.search(q=song, type='track', limit=1)
-     #    track_id = results['tracks']['items'][0]['id']
-     #    print("ID della traccia:", track_id)
