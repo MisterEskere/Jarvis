@@ -10,22 +10,19 @@ voice = pyttsx3.init()
 voice.setProperty('voice', 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_IT-IT_ELSA_11.0')
 
 while True:
-    
-    text = ''
 
     # Riconoscimento vocale
     with sr.Microphone() as source: # Utilizzo del microfono
-
-        audio = r.listen(source) # Ascolto del microfono
-
-    try:
-        text = r.recognize_google(audio, language="it-IT") # Riconoscimento del testo
-        print(text) 
-    except sr.UnknownValueError: # Se non riesce a capire cosa hai detto
-        print("Non sono riuscito a capire cosa hai detto.")
-        continue
+        try:
+            audio = r.listen(source, 3, 5) # Ascolto del microfono
+            text = r.recognize_google(audio, language="it-IT") # Riconoscimento del testo
+        except:
+            audio = None
+            text = ''
+            continue
 
     text = text.lower() # Trasformo tutto il testo in minuscolo
+    print(text) # Stampo il testo riconosciuto 
 
     # Riconoscimento comandi
     if "jarvis apri spotify" in text:
