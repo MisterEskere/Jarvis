@@ -29,30 +29,22 @@ while True:
     text = ''
 
     # Riconoscimento vocale
-    with sr.Microphone() as source:
-        # Regolazione del rumore di fondo per eliminare i suoni indesiderati
-        #r.adjust_for_ambient_noise(source)
+    with sr.Microphone() as source: # Utilizzo del microfono
 
-        # Acquisizione dell'audio dal microfono
-        audio = r.listen(source)
+        audio = r.listen(source) # Ascolto del microfono
 
     try:
-        # Utilizzo del riconoscimento vocale di Google per convertire l'audio in testo
-        text = r.recognize_google(audio, language="it-IT")
-
-        # Restituzione del testo riconosciuto
-        text = text.lower() 
-        print(text)
-        
-    except sr.UnknownValueError:
+        text = r.recognize_google(audio, language="it-IT") # Riconoscimento del testo
+        print(text) 
+    except sr.UnknownValueError: # Se non riesce a capire cosa hai detto
         print("Non sono riuscito a capire cosa hai detto.")
-    except sr.RequestError:
-        print("La richiesta al servizio di riconoscimento vocale è fallita.")
+        continue
+
+    text = text.lower() # Trasformo tutto il testo in minuscolo
 
     # Riconoscimento comandi
-
     if "jarvis apri spotify" in text:
-        # Esegui il fil
+        # Esegui il file eseguibile di spotify
         subprocess.call(spotify, creationflags=subprocess.CREATE_NO_WINDOW)
         voice.say("Fatto")
         voice.runAndWait()
@@ -74,15 +66,15 @@ while True:
             pass
         continue  
 
-    if "jarvis prossima canzone" in text:
+    if "jarvis canzone successiva" in text:
         try:
             sp.next_track()
         except:
             # Ignora l'eccezione e continua l'esecuzione
             pass
-        continue  
+        continue
     
-    if "jarvis metti canzone precedente" in text:
+    if "jarvis canzone precedente" in text:
         try:
             sp.previous_track()
         except:
@@ -101,10 +93,9 @@ while True:
             pass
         continue  
 
-
-    if "jarvis metti" in text:
-        song_position = text.find("jarvis metti ")
-        song = text[song_position + len("jarvis metti "):]
+    if "jarvis metti la canzone" in text:
+        song_position = text.find("jarvis metti la canzone ")
+        song = text[song_position + len("jarvis metti la canzone"):]
 
         try:
             results = sp.search(q=song, type='track', limit=1)
@@ -114,3 +105,59 @@ while True:
             # Ignora l'eccezione e continua l'esecuzione
             pass
         continue
+
+    if "jarvis metti la playlist" in text:
+        playlist_position = text.find("jarvis metti la playlist ")
+        playlist = text[playlist_position + len("jarvis metti la playlist "):]
+
+        try:
+            results = sp.search(q=playlist, type='playlist', limit=1)
+            playlist_id = results['playlists']['items'][0]['id']
+            sp.start_playback(context_uri='spotify:playlist:' + playlist_id)
+        except:
+            # Ignora l'eccezione e continua l'esecuzione
+            pass
+        continue
+
+    if "jarvis metti l'album" in text:
+        album_position = text.find("jarvis metti l'album ")
+        album = text[album_position + len("jarvis metti l'album "):]
+
+        try:
+            results = sp.search(q=album, type='album', limit=1)
+            album_id = results['albums']['items'][0]['id']
+            sp.start_playback(context_uri='spotify:album:' + album_id)
+        except:
+            # Ignora l'eccezione e continua l'esecuzione
+            pass
+        continue
+
+    if "jarvis chiudi spotify" in text:
+        try:
+            sp.pause_playback()
+        except:
+            # Ignora l'eccezione e continua l'esecuzione
+            pass
+
+        # Chiudi il file eseguibile di spotify
+        subprocess.call("taskkill /IM Spotify.exe /F", creationflags=subprocess.CREATE_NO_WINDOW)
+        voice.say("Fatto")
+        voice.runAndWait()
+        continue
+
+    if "jarvis spegni il pc" in text:
+        voice.say("Spegnimento in corso")
+        voice.runAndWait()
+        subprocess.call("shutdown /s /t 1", creationflags=subprocess.CREATE_NO_WINDOW)
+        continue
+
+    if "jarvis riavvia il pc" in text:
+        voice.say("Riavvio in corso")
+        voice.runAndWait()
+        subprocess.call("shutdown /r /t 1", creationflags=subprocess.CREATE_NO_WINDOW)
+        continue
+
+    if "jarvis esci" in text:
+        voice.say("Arrivederci")
+        voice.runAndWait()
+        break
