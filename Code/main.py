@@ -97,6 +97,11 @@ while True:
             pass
 
 
+    if "jarvis metti" in text:
+        song_position = text.find("jarvis metti ")
+        song = text[song_position + len("jarvis metti "):]
+            
+
 
     # if "jarvis DIOCANEEEE" in text:
   #       song_position = text.find("jarvis metti ")  # Trova la canzone di "jarvis metti"
