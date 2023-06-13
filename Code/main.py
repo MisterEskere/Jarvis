@@ -41,16 +41,31 @@ while True:
         sp.canzone_precedente()
 
     elif "jarvis metti il volume a" in text:
-        sp.metti_volume(int(text[23:]))
+        posizione = text.find("jarvis metti il volume a ")
+        volume = text[posizione + len("jarvis metti il volume a "):]
+
+        sp.metti_volume(int(volume))
 
     elif "jarvis metti la canzone" in text:
-        sp.riproduci_brano(text[22:])
+        posizione = text.find("jarvis metti la canzone ")
+        canzone = text[posizione + len("jarvis metti la canzone "):]
+
+        sp.riproduci_brano(canzone)
 
     elif "jarvis metti l'album" in text:
-        sp.riproduci_album(text[21:])
+        posizione = text.find("jarvis metti l'album ")
+        album = text[posizione + len("jarvis metti l'album "):]
+
+        sp.riproduci_album(album)
 
     elif "jarvis metti l'artista" in text:
-        sp.riproduci_artista(text[22:]) 
+        posizione = text.find("jarvis metti l'artista ")
+        artista = text[posizione + len("jarvis metti l'artista"):]
+
+        sp.riproduci_artista(artista) 
 
     elif "jarvis metti la playlist" in text:
-        sp.riproduci_playlist(text[24:])
+        posizione = text.find("jarvis metti la playlist ")
+        playlist = text[posizione + len("jarvis metti la playlist "):]
+
+        sp.riproduci_playlist(playlist)
