@@ -113,4 +113,4 @@ while True:
         except:
             # Ignora l'eccezione e continua l'esecuzione
             pass
-        continue  
+        continue
