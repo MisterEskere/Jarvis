@@ -5,14 +5,22 @@ from spotipy.oauth2 import SpotifyOAuth
 # Path of the Spotify executable file
 spotify = "C:\\Users\\User\\AppData\\Roaming\\Spotify\\Spotify.exe"
 
+def read_file(file_name):
+    try:
+        with open(file_name, 'r') as file:
+            content = file.read()
+        return content
+    except FileNotFoundError:
+        print("File not found.")
+        return None
+
 # Spotify application credentials
-client_id = ""
-client_secret = ""
+client_id = read_file('.../API/spotify_client.txt')
+client_secret = read_file('.../API/spotify_secret.txt')
 redirect_uri = 'http://localhost:8080/'
 
 scope = 'user-modify-playback-state'
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
-
 
 def open_spotify():
     # Execute the Spotify executable file
