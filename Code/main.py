@@ -1,6 +1,7 @@
 import pyttsx3
 import speech_recognition as sr
 import spotify as sp
+import utility as ut
 
 # Create a speech recognition object
 r = sr.Recognizer()
@@ -47,25 +48,44 @@ while True:
         sp.set_volume(int(volume))
 
     elif "jarvis riproduci traccia" in text:
-        posizione = text.find("jarvis riproduci traccia ")
-        traccia = text[posizione + len("jarvis riproduci traccia "):]
+        position = text.find("jarvis riproduci traccia ")
+        track = text[position + len("jarvis riproduci traccia "):]
 
-        sp.riproduci_brano(traccia)
+        sp.riproduci_brano(track)
 
     elif "jarvis riproduci album" in text:
-        posizione = text.find("jarvis riproduci album ")
-        album = text[posizione + len("jarvis riproduci album "):]
+        position = text.find("jarvis riproduci album ")
+        album = text[position + len("jarvis riproduci album "):]
 
         sp.riproduci_album(album)
 
     elif "jarvis riproduci artista" in text:
-        posizione = text.find("jarvis riproduci artista ")
-        artista = text[posizione + len("jarvis riproduci artista"):]
+        position = text.find("jarvis riproduci artista ")
+        artist = text[position + len("jarvis riproduci artista"):]
 
-        sp.riproduci_artista(artista) 
+        sp.riproduci_artista(artist) 
 
     elif "jarvis riproduci playlist" in text:
-        posizione = text.find("jarvis riproduci playlist ")
-        playlist = text[posizione + len("jarvis riproduci playlist "):]
+        position = text.find("jarvis riproduci playlist ")
+        playlist = text[position + len("jarvis riproduci playlist "):]
 
         sp.riproduci_playlist(playlist)
+
+    elif "jarvis che ore sono" in text:
+        time = ut.current_time()
+        voice.say("Sono le " + time)
+        voice.runAndWait()
+
+    elif "jarvis che giorno è" in text:
+        date = ut.current_date()
+        voice.say("Oggi è il " + date)
+        voice.runAndWait()
+
+    elif "jarvis che tempo fa a" in text:
+        position = text.find("jarvis che tempo fa a ")
+        city = text[position + len("jarvis che tempo fa a "):]
+
+        weather = ut.weather(city)
+        voice.say(weather)
+        voice.runAndWait()
+    

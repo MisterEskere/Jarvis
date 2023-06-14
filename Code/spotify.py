@@ -6,8 +6,8 @@ from spotipy.oauth2 import SpotifyOAuth
 spotify = "C:\\Users\\User\\AppData\\Roaming\\Spotify\\Spotify.exe"
 
 # Spotify application credentials
-client_id = "b256096db716426f9fdf6e8a917e0645"
-client_secret = "762a3b2d45db4c1dbb862d661393d8a0"
+client_id = ""
+client_secret = ""
 redirect_uri = 'http://localhost:8080/'
 
 scope = 'user-modify-playback-state'
