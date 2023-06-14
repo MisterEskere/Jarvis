@@ -2,10 +2,10 @@ import spotipy
 import subprocess
 from spotipy.oauth2 import SpotifyOAuth
 
-# Percorso del file eseguibile di spotify
+# Path of the Spotify executable file
 spotify = "C:\\Users\\User\\AppData\\Roaming\\Spotify\\Spotify.exe"
 
-# Credenziali dell'applicazione Spotify
+# Spotify application credentials
 client_id = "b256096db716426f9fdf6e8a917e0645"
 client_secret = "762a3b2d45db4c1dbb862d661393d8a0"
 redirect_uri = 'http://localhost:8080/'
@@ -14,60 +14,68 @@ scope = 'user-modify-playback-state'
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id, client_secret=client_secret, redirect_uri=redirect_uri, scope=scope))
 
 
-def apri_spotify():
-    # Esegui il file eseguibile di spotify
+def open_spotify():
+    # Execute the Spotify executable file
     subprocess.call(spotify, creationflags=subprocess.CREATE_NO_WINDOW)
 
-def metti_in_pausa():
+def pause_music():
     try:
         sp.pause_playback()
     except:
         return False
 
-def rimetti_musica():
+def resume_music():
     try:
         sp.start_playback()
     except:
         return False
 
-def canzone_successiva():
+def play_next_song():
     try:
         sp.next_track()
     except:
         return False
 
-def canzone_precedente():
+def play_previous_song():
     try:
         sp.previous_track()
     except:
         return False
     
-def metti_volume(volume):
+def set_volume(volume):
     try:
         sp.volume(volume)
     except:
         return False
 
-def riproduci_brano(brano):
+def play_track(song):
     try:
-        sp.start_playback(uris=brano)
+        results = sp.search(q=song, type='track', limit=1)
+        track_id = results['tracks']['items'][0]['id']
+        sp.start_playback(uris=['spotify:track:' + track_id])
     except:
         return False
 
-def riproduci_album(album):
+def play_album(album):
     try:
-        sp.start_playback(context_uri=album)
+        results = sp.search(q=album, type='album', limit=1)
+        album_id = results['albums']['items'][0]['id']
+        sp.start_playback(context_uri='spotify:album:' + album_id)
     except:
         return False
 
-def riproduci_artista(artista):
+def play_artist(artist):
     try:
-        sp.start_playback(context_uri=artista)
+        results = sp.search(q=artist, type='artist', limit=1)
+        artist_id = results['artists']['items'][0]['id']
+        sp.start_playback(context_uri='spotify:artist:' + artist_id)
     except:
         return False
 
-def riproduci_playlist(playlist):
+def play_playlist(playlist):
     try:
-        sp.start_playback(context_uri=playlist)
+        results = sp.search(q=playlist, type='playlist', limit=1)
+        playlist_id = results['playlists']['items'][0]['id']
+        sp.start_playback(context_uri='spotify:playlist:' + playlist_id)
     except:
         return False
