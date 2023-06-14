@@ -15,7 +15,7 @@ while True:
     # Voice recognition
     with sr.Microphone() as source: # Use the microphone
         try:
-            audio = r.listen(source, 3, 5) # Listen to the microphone
+            audio = r.listen(source,phrase_time_limit=10) # Listen to the microphone
             text = r.recognize_google(audio, language="it-IT") # Recognize the text
         except:
             audio = None
@@ -47,29 +47,29 @@ while True:
 
         sp.set_volume(int(volume))
 
-    elif "jarvis riproduci traccia" in text:
-        position = text.find("jarvis riproduci traccia ")
-        track = text[position + len("jarvis riproduci traccia "):]
+    elif "jarvis riproduci canzone" in text:
+        position = text.find("jarvis riproduci canzone ")
+        track = text[position + len("jarvis riproduci canzone "):]
 
-        sp.riproduci_brano(track)
+        sp.play_track(track)
 
     elif "jarvis riproduci album" in text:
         position = text.find("jarvis riproduci album ")
         album = text[position + len("jarvis riproduci album "):]
 
-        sp.riproduci_album(album)
+        sp.play_album(album)
 
     elif "jarvis riproduci artista" in text:
         position = text.find("jarvis riproduci artista ")
         artist = text[position + len("jarvis riproduci artista"):]
 
-        sp.riproduci_artista(artist) 
+        sp.play_artist(artist) 
 
     elif "jarvis riproduci playlist" in text:
         position = text.find("jarvis riproduci playlist ")
         playlist = text[position + len("jarvis riproduci playlist "):]
 
-        sp.riproduci_playlist(playlist)
+        sp.play_playlist(playlist)
 
     elif "jarvis che ore sono" in text:
         time = ut.current_time()
